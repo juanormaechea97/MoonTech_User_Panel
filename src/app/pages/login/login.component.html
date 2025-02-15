@@ -44,10 +44,10 @@
     <input type="password" id="password" [(ngModel)]="password" placeholder="Ingresa tu contraseña">
 
     <div class="remember-container">
-      <input type="checkbox" id="remember">
+      <input type="checkbox" id="remember" [(ngModel)]="rememberMe">
       <label for="remember">Recuérdame</label>
     </div>
-
+    
     <button (click)="login()" [disabled]="loading">
       {{ loading ? 'Cargando...' : 'Iniciar sesión' }}
     </button>
