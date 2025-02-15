@@ -1,54 +1,60 @@
 <div class="users-container">
-  
+
   <!-- Lista de usuarios -->
   <div class="users-list">
+
+    <!-- Botón para abrir el modal -->
+    <div class="create-user-container">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModal">
+        + Crear Usuario
+      </button>
+    </div>
+
     <div 
       *ngFor="let user of users" 
       class="user-card" 
       [class.selected]="user === selectedUser"
       (click)="selectUser(user)">
-  
+
       <!-- Fila principal (Avatar, Nombre y Estado) -->
       <div class="user-info">
         <div class="avatar">{{ getInitials(user.name) }}</div>
         <p class="user-name">{{ user.name }}</p>
         <p class="user-status"
-        [ngClass]="user.active ? 'active' : 'inactive'"
-        (click)="toggleUserStatus(user)">
-       {{ user.active ? 'Activo' : 'Inactivo' }}
-     </p>
-     
-     
+          [ngClass]="user.active ? 'active' : 'inactive'"
+          (click)="toggleUserStatus(user)">
+          {{ user.active ? 'Activo' : 'Inactivo' }}
+        </p>
       </div>
-  
-      <!-- Última conexión (debajo) -->
-    <!--   <p class="last-login">Última conexión: {{ user.lastLogin | date:'short' }}</p> -->
     </div>
   </div>
-  
 
-  <!-- Panel de detalles del usuario -->
- <!--  <div class="user-details" *ngIf="selectedUser">
-    <h2 *ngIf="!editing">{{ selectedUser.name }}</h2>
-    <input *ngIf="editing" [(ngModel)]="selectedUser.name" type="text" />
-  
-    <p>Email: <span *ngIf="!editing">{{ selectedUser.email }}</span>
-    <input *ngIf="editing" [(ngModel)]="selectedUser.email" type="email" /></p>
-  
-    <p>Estado: 
-      <span *ngIf="!editing" [ngClass]="selectedUser.active ? 'active' : 'inactive'">
-        {{ selectedUser.active ? 'Activo' : 'Inactivo' }}
-      </span>
-      <select *ngIf="editing" [(ngModel)]="selectedUser.active">
-        <option [value]="true">Activo</option>
-        <option [value]="false">Inactivo</option>
-      </select>
-    </p>
-  
-    <button *ngIf="!editing" (click)="editUser(selectedUser)">Editar</button>
-    <button *ngIf="editing" (click)="saveUser()">Guardar</button>
-    <button *ngIf="editing" (click)="editing = false">Cancelar</button>
-  </div> -->
-  
-  
+  <!-- MODAL DE BOOTSTRAP -->
+  <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createUserModalLabel">Crear nuevo usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <label for="name">Nombre</label>
+          <input type="text" class="form-control" id="name" [(ngModel)]="newUser.name" placeholder="Ingresa el nombre">
+
+          <label for="email" class="mt-2">Correo electrónico</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="newUser.email" placeholder="Ingresa el correo">
+
+          <label for="password" class="mt-2">Contraseña</label>
+          <input type="password" class="form-control" id="password" [(ngModel)]="newUser.password" placeholder="Ingresa la contraseña">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-success" (click)="createUser()" [disabled]="loading">
+            {{ loading ? 'Creando...' : 'Crear Usuario' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

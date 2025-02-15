@@ -20,6 +20,7 @@ export class LoginComponent {
   password = '';
   rememberMe = false; // ✅ Nuevo campo para recordar usuario y contraseña
   loading = false; // Estado de carga
+  
 
   constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) {}
 
