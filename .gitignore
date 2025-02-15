@@ -128,3 +128,22 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Angular
+dist/
+.angular/
+
+# Archivos de sistema (Windows/macOS/Linux)
+.DS_Store
+Thumbs.db
+
+# Visual Studio Code
+.vscode/
+.vscode/*
+
+# IDEs como JetBrains/WebStorm
+.idea/
+
+
+
+
