@@ -17,9 +17,11 @@ body, html {
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 350px;
+    width: 90%;  /* 🔹 Usa un ancho más flexible */
+    max-width: 350px;  /* 🔹 En pantallas grandes, no excede 350px */
     text-align: center;
   }
+  
   
   input {
     width: 100%;
@@ -43,4 +45,19 @@ body, html {
   button:hover {
     background: #0056b3;
   }
+
+  @media (max-width: 480px) {
+    h2 {
+      font-size: 20px; /* 🔹 Reduce el tamaño del título en móviles */
+    }
+  
+    input, button {
+      font-size: 14px; /* 🔹 Hace los textos más manejables */
+    }
+  
+    .card {
+      padding: 20px; /* 🔹 Reduce el padding en pantallas pequeñas */
+    }
+  }
+  
   
