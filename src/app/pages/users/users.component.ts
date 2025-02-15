@@ -11,7 +11,9 @@ interface User {
   name: string;
   email: string;
   active: boolean;
+  lastname?: string;
   lastLogin?: string;
+  avatarColor?: string; // 🔹 Nuevo campo para el color del avatar
 }
 
 
@@ -33,6 +35,7 @@ newUser = {
   name: '',
   email: '',
   password: '', 
+  lastname: '',
   active: true
 };
 
@@ -45,34 +48,29 @@ newUser = {
  
   // ✅ Alternar estado activo/inactivo con Toastr
   loadUsers() {
-    this.loading = true;
-    this.errorMessage = '';
-  
     const token = localStorage.getItem('token');
     if (!token) {
-      this.toastr.error('No hay token de autenticación.', 'Error');
-      this.loading = false;
+      console.error('No hay token de autenticación');
       return;
     }
-  
+
     this.http.get<User[]>('http://localhost:5001/api/users', {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe({
       next: (res) => {
-        console.log('✅ Usuarios recibidos:', res); // 🔹 Verifica si se reciben datos
-        this.users = res;
-        if (res.length > 0) {
-          this.selectedUser = res[0];
-        }
-        this.loading = false;
+        // 🔹 Asignar un color aleatorio a cada usuario
+        this.users = res.map(user => ({
+          ...user,
+          avatarColor: this.getRandomColor()
+        }));
       },
-      error: (err) => {
-        console.error('❌ Error al obtener usuarios:', err);
-        this.errorMessage = 'Error al cargar usuarios.';
-        this.loading = false;
-        this.toastr.error('No se pudieron cargar los usuarios.', 'Error');
-      }
+      error: (err) => console.error('Error al obtener usuarios:', err)
     });
+  }
+
+  // 🔹 Generar un color aleatorio en formato hexadecimal
+  getRandomColor(): string {
+    return `#${Math.floor(Math.random()*16777215).toString(16)}`;
   }
 
  
@@ -214,7 +212,7 @@ newUser = {
         this.loadUsers();
   
         // ✅ Limpiar formulario solo si el usuario se creó con éxito
-        this.newUser = { name: '', email: '', password: '', active: true };
+        this.newUser = { name: '', email: '', password: '',lastname: '',  active: true };
       },
       error: (err) => {
         console.error('Error al crear usuario:', err);

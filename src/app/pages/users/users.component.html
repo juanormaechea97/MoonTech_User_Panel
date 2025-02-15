@@ -18,8 +18,12 @@
 
       <!-- Fila principal (Avatar, Nombre y Estado) -->
       <div class="user-info">
-        <div class="avatar">{{ getInitials(user.name) }}</div>
+        <div class="avatar" [ngStyle]="{'background': user.avatarColor}">
+          {{ getInitials(user.name) }}
+        </div>
+        
         <p class="user-name">{{ user.name }}</p>
+        <p class="user-lastname">{{ user.lastname }}</p>
         <p class="user-status"
           [ngClass]="user.active ? 'active' : 'inactive'"
           (click)="toggleUserStatus(user)">
@@ -31,30 +35,53 @@
 
   <!-- MODAL DE BOOTSTRAP -->
   <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg"> <!-- ✅ Centrado y tamaño adaptable -->
       <div class="modal-content">
+        
+        <!-- Encabezado del Modal -->
         <div class="modal-header">
           <h5 class="modal-title" id="createUserModalLabel">Crear nuevo usuario</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
         </div>
+        
+        <!-- Cuerpo del Modal -->
         <div class="modal-body">
-          <label for="name">Nombre</label>
-          <input type="text" class="form-control" id="name" [(ngModel)]="newUser.name" placeholder="Ingresa el nombre">
-
-          <label for="email" class="mt-2">Correo electrónico</label>
-          <input type="email" class="form-control" id="email" [(ngModel)]="newUser.email" placeholder="Ingresa el correo">
-
-          <label for="password" class="mt-2">Contraseña</label>
-          <input type="password" class="form-control" id="password" [(ngModel)]="newUser.password" placeholder="Ingresa la contraseña">
+          
+          <div class="mb-3"> <!-- ✅ Espaciado entre elementos -->
+            <label for="name" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="newUser.name" placeholder="Ingresa el nombre">
+          </div>
+  
+          <div class="mb-3"> <!-- ✅ Espaciado entre elementos -->
+            <label for="lastname" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="lastname" [(ngModel)]="newUser.lastname" placeholder="Ingresa el apellido">
+          </div>
+  
+          <div class="mb-3"> <!-- ✅ Espaciado entre elementos -->
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="email" [(ngModel)]="newUser.email" placeholder="Ingresa el correo">
+          </div>
+  
+          <div class="mb-3"> <!-- ✅ Espaciado entre elementos -->
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" [(ngModel)]="newUser.password" placeholder="Ingresa la contraseña">
+          </div>
+  
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+  
+        <!-- Pie del Modal -->
+        <div class="modal-footer d-flex justify-content-between"> <!-- ✅ Mejor distribución -->
+          <button type="button" class="cancel-btn" data-bs-dismiss="modal">
+            Cancelar
+          </button>
           <button type="button" class="btn btn-success" (click)="createUser()" [disabled]="loading">
             {{ loading ? 'Creando...' : 'Crear Usuario' }}
           </button>
         </div>
+  
       </div>
     </div>
   </div>
+  
 
 </div>
