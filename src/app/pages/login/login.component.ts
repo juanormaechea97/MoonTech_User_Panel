@@ -6,6 +6,7 @@ import { AnimationOptions } from 'ngx-lottie';
 import { LottieComponent } from 'ngx-lottie'; // ✅ Importación correcta
 import animationData from '../../../assets/lottie/moonAnimation.json';
 import cloudsAnimation from '../../../assets/lottie/clouds.json';
+import { ToastrService } from 'ngx-toastr'; // ✅ Importar Toastr
 
 
 @Component({
@@ -15,11 +16,14 @@ import cloudsAnimation from '../../../assets/lottie/clouds.json';
   standalone: true, 
   imports: [FormsModule, LottieComponent] // ✅ Agregar LottieComponent en Standalone
 })
+
 export class LoginComponent {
   email = '';
   password = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  loading = false; // Estado de carga
+
+  constructor(private authService: AuthService, private router: Router,    private toastr: ToastrService  ) {}
 
   lottieOptions: AnimationOptions = {
     animationData, // 🔹 Carga el JSON directamente en Angular
@@ -34,15 +38,30 @@ export class LoginComponent {
   };
   
 
+
   login() {
-    this.authService.login(this.email, this.password).subscribe(
-      (res) => {
-        localStorage.setItem('token', res.token);
-        this.router.navigate(['/users']);
+    if (!this.email || !this.password) {
+      this.toastr.warning('Por favor, ingresa tu email y contraseña.', 'Atención');
+      return;
+    }
+
+    this.loading = true;
+    this.authService.login(this.email, this.password).subscribe({
+      next: (res) => {
+        this.loading = false;
+        if (res.token) {
+          this.authService.saveToken(res.token);
+          this.toastr.success('Inicio de sesión exitoso!', 'Bienvenido');
+          this.router.navigate(['/users']);
+        } else {
+          this.toastr.error('Credenciales incorrectas.', 'Error');
+        }
       },
-      (err) => {
-        alert('Login incorrecto');
+      error: () => {
+        this.loading = false;
+        this.toastr.error('Error al iniciar sesión. Verifica tus credenciales.', 'Error');
       }
-    );
+    });
   }
+
 }

@@ -1,1 +1,23 @@
-/* You can add global styles to this file, and also import other style files */
+/* Importa los estilos base de ngx-toastr */
+@import 'ngx-toastr/toastr';
+
+/* Personalización de los estilos de los Toasts */
+.toast-success {
+    background-color: #28a745 !important;
+    color: white !important;
+}
+  
+.toast-error {
+    background-color: #dc3545 !important;
+    color: white !important;
+}
+  
+.toast-warning {
+    background-color: #ffc107 !important;
+    color: black !important;
+}
+  
+.toast-info {
+    background-color: #17a2b8 !important;
+    color: white !important;
+}

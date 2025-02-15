@@ -48,6 +48,9 @@
       <label for="remember">Recuérdame</label>
     </div>
 
-    <button (click)="login()">Iniciar sesión</button>
+    <button (click)="login()" [disabled]="loading">
+      {{ loading ? 'Cargando...' : 'Iniciar sesión' }}
+    </button>
+    
   </div>
 </div>
