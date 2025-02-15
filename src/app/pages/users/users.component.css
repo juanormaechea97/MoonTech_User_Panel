@@ -1,0 +1,161 @@
+/* Reset general */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 🔹 Evita scroll innecesario */
+}
+
+/* Contenedor principal */
+.users-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* 🔹 Centra horizontalmente */
+    align-items: center; /* 🔹 Centra verticalmente */
+    background: linear-gradient(to bottom, #001f4e, #001f4e);
+    position: relative;
+}
+
+/* Lista de usuarios */
+.users-list {
+    width: 30%;
+    padding: 10px;
+    overflow-y: auto; /* 🔹 Permite scroll si es necesario */
+    overflow-x: visible; /* 🔹 Asegura que los bordes no se corten */
+}
+
+
+/* Tarjeta de usuario */
+.user-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 20px; /* 🔹 Asegura que las esquinas sean redondeadas */
+    cursor: pointer;
+    transition: 0.2s;
+    border: 2px solid transparent;
+    overflow: visible; /* 🔹 Evita que se recorten los bordes */
+}
+
+
+.user-card:hover {
+    border-color: #ffcc00;
+    border-width: 4px; /* 🔹 Hace que el borde sea más grueso en hover */
+}
+
+.user-card.selected {
+    border-color: #ffcc00;
+    border-width: 4px; /* 🔹 Hace que el borde sea más grueso cuando está seleccionado */
+}
+
+/* Fila principal (Avatar, Nombre y Estado en la misma línea) */
+.user-info {
+    display: flex;
+    align-items: center; /* 🔹 Alinea verticalmente */
+    width: 100%;
+    gap: 10px; /* 🔹 Espacio entre elementos */
+}
+
+/* Avatar */
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #007bff;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Nombre del usuario */
+.user-name {
+    font-weight: bold;
+    padding-top: 10px;
+    flex-grow: 1; /* 🔹 Permite que ocupe el espacio disponible */
+    display: flex;
+    align-items: center; /* 🔹 Alinea verticalmente */
+}
+
+/* Estado del usuario */
+.user-status {
+    padding: 6px 14px; /* 🔹 Ajusta el padding para que no se vea desproporcionado */
+    border-radius: 12px;
+    font-size: 14px; /* 🔹 Ajusta el tamaño del texto */
+    font-weight: bold;
+    text-align: center;
+    margin-top: 13px;
+    min-width: 80px;
+    display: flex;
+    align-items: center; /* 🔹 Asegura la alineación vertical */
+    justify-content: center; /* 🔹 Centra el contenido */
+}
+
+.user-status.active {
+    background: #d4edda;
+    color: #155724;
+}
+
+.user-status.inactive {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Última conexión (debajo) */
+.last-login {
+    font-size: 12px;
+    color: #555;
+    margin-top: 5px; /* 🔹 Espaciado con respecto a la fila principal */
+    text-align: left;
+    width: 100%;
+}
+
+/* Detalles del usuario */
+.user-details {
+    width: 65%;
+    padding: 20px;
+    color: white;
+}
+
+/* Botones */
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+    background: #fec95c;
+    color: black;
+}
+
+button.delete {
+    background: #dc3545;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .users-container {
+        flex-direction: column;
+    }
+
+    .users-list {
+        width: 100%;
+        height: 40vh;
+    }
+
+    .user-details {
+        width: 100%;
+        height: 60vh;
+    }
+}
