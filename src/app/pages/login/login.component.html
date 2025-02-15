@@ -1,8 +1,53 @@
 <div class="login-container">
+  
+  <!-- Animación de fondo (Nubes - Izquierda) -->
+  <div class="animation-background">
+    <ng-lottie 
+      [options]="cloudsOptions"
+      width="100%" 
+      height="100%">
+    </ng-lottie>
+  </div>
+
+  <!-- Animación de fondo (Nubes - Derecha) -->
+  <div class="animation-background2">
+    <ng-lottie 
+      [options]="cloudsOptions"
+      width="100%" 
+      height="100%">
+    </ng-lottie>
+  </div>
+
+  <!-- Animación principal (Luna o lo que sea) -->
+  <div class="animation-container">
+    <ng-lottie 
+      [options]="lottieOptions"
+      width="100%" 
+      height="100%">
+    </ng-lottie>
+  </div>
+
+  <!-- Logo -->
+  <div class="logo-container">
+    <img src="assets/moontech.png" alt="Logo" class="logo">
+  </div>
+
+  <!-- Tarjeta de Inicio de Sesión -->
   <div class="card">
-    <h2>Iniciar Sesión</h2>
-    <input type="email" [(ngModel)]="email" placeholder="Email">
-    <input type="password" [(ngModel)]="password" placeholder="Contraseña">
-    <button (click)="login()">Ingresar</button>
+    <h2>Inicia sesión con tu cuenta</h2>
+    <div class="divider"></div> <!-- Línea divisoria -->
+
+    <label for="email">Usuario</label>
+    <input type="email" id="email" [(ngModel)]="email" placeholder="Ingresa tu usuario">
+
+    <label for="password">Contraseña</label>
+    <input type="password" id="password" [(ngModel)]="password" placeholder="Ingresa tu contraseña">
+
+    <div class="remember-container">
+      <input type="checkbox" id="remember">
+      <label for="remember">Recuérdame</label>
+    </div>
+
+    <button (click)="login()">Iniciar sesión</button>
   </div>
 </div>

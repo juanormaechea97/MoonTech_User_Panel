@@ -1,63 +1,168 @@
+/* Reset general */
 body, html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* 🔹 Evita scroll innecesario */
+}
+
+/* Contenedor principal */
+.login-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom, #001f4e, #001f4e);
+  position: relative;
+}
+
+/* 🌙 Animación principal */
+.animation-container {
+  position: fixed;
+  top: 25%;
+  left: 80%;
+  transform: translate(-50%, -50%) scale(3.5); /* 🔹 Ajuste del tamaño */
+  z-index: 2; /* 🔹 Asegura que está sobre el fondo */
+}
+
+@media (max-width: 768px) {
+  .animation-container {
+    transform: translate(-50%, -50%) scale(2); /* 🔹 Ajuste en tablets */
   }
-  
-  .login-container {
-    height: 100vh; /* Ocupa toda la pantalla */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(to bottom, #007bff, #0056b3); /* Fondo azul degradado */
+}
+
+@media (max-width: 480px) {
+  .animation-container {
+    transform: translate(-50%, -50%) scale(1.5); /* 🔹 Ajuste en móviles */
   }
-  
-  .card {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 90%;  /* 🔹 Usa un ancho más flexible */
-    max-width: 350px;  /* 🔹 En pantallas grandes, no excede 350px */
-    text-align: center;
-  }
-  
-  
-  input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  button {
-    width: 100%;
-    padding: 10px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  button:hover {
-    background: #0056b3;
+}
+
+/* ☁️ Nubes - Izquierda */
+.animation-background {
+  position: fixed;
+  top: 40%;
+  left: 10%;
+  transform: translate(-50%, -50%) scale(1.3);
+  opacity: 0.4;
+  z-index: 1; /* 🔹 Detrás de la luna */
+}
+
+/* ☁️ Nubes - Derecha */
+.animation-background2 {
+  position: fixed;
+  top: 80%;
+  left: 70%;
+  transform: translate(-50%, -50%) scale(1.7);
+  opacity: 0.4;
+  z-index: 1; /* 🔹 Detrás de la luna */
+}
+
+/* 🔹 Logo */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  z-index: 3;
+}
+
+.logo {
+  width: 120px;
+  height: auto;
+}
+
+/* 🔹 Tarjeta de inicio de sesión */
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+  max-height: 800px;
+  text-align: left;
+  position: relative;
+  z-index: 5; /* 🔹 Asegura que está sobre las animaciones */
+}
+
+/* 🔹 Estilos de título */
+h2 {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* 🔹 Línea divisoria */
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #ddd;
+  margin-bottom: 40px;
+}
+
+/* 🔹 Estilos de inputs y labels */
+label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* 🔹 Checkbox */
+.remember-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #fec95c;
+}
+
+/* 🔹 Botón */
+button {
+  width: 100%;
+  padding: 12px;
+  background: #fec95c;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* 🔹 Hover del botón */
+button:hover {
+  background: #ecab28;
+}
+
+/* 🔹 Responsive */
+@media (max-width: 480px) {
+  h2 {
+    font-size: 18px;
   }
 
-  @media (max-width: 480px) {
-    h2 {
-      font-size: 20px; /* 🔹 Reduce el tamaño del título en móviles */
-    }
-  
-    input, button {
-      font-size: 14px; /* 🔹 Hace los textos más manejables */
-    }
-  
-    .card {
-      padding: 20px; /* 🔹 Reduce el padding en pantallas pequeñas */
-    }
+  input, button {
+    font-size: 14px;
   }
-  
-  
+
+  .card {
+    padding: 20px;
+  }
+}
