@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000/api/auth'; // Cambia esto según el backend
+  private apiUrl = 'http://localhost:5001/api/auth'; // URL del backend
 
   constructor(private http: HttpClient) {}
 
@@ -14,11 +14,19 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, { email, password });
   }
 
-  logout(): void {
-    localStorage.removeItem('token');
+  logout(): Observable<any> {
+    return this.http.post(`${this.apiUrl}/logout`, {});
+  }
+
+  saveToken(token: string): void {
+    localStorage.setItem('token', token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('token');
+    return !!this.getToken();
   }
 }

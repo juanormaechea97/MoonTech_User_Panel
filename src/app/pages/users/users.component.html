@@ -6,14 +6,7 @@
         <th>Email</th>
         <th>Acciones</th>
       </tr>
-      <tr *ngFor="let user of users">
-        <td>{{ user.name }}</td>
-        <td>{{ user.email }}</td>
-        <td>
-          <button (click)="editUser(user)">Editar</button>
-          <button (click)="deleteUser(user.id)">Eliminar</button>
-        </td>
-      </tr>
+     
     </table>
   </div>
   
