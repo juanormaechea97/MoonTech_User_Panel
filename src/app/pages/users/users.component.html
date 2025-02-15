@@ -1,5 +1,32 @@
 <div class="users-container">
 
+   <!-- Animación de fondo (Nubes - Izquierda) -->
+   <div class="animation-background">
+    <ng-lottie 
+      [options]="cloudsOptions"
+      width="100%" 
+      height="100%">
+    </ng-lottie>
+  </div>
+
+  <!-- Animación de fondo (Nubes - Derecha) -->
+  <div class="animation-background2">
+    <ng-lottie 
+      [options]="cloudsOptions"
+      width="100%" 
+      height="100%">
+    </ng-lottie>
+  </div>
+
+  <!-- Animación principal (Luna o lo que sea) -->
+  <div class="animation-container">
+    <ng-lottie 
+      [options]="lottieOptions"
+      width="100%" 
+      height="100%">
+    </ng-lottie>
+  </div>
+
   <!-- Lista de usuarios -->
   <div class="users-list">
 

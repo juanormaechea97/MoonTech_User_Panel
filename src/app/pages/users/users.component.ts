@@ -3,7 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { ToastrService } from 'ngx-toastr'; // 🔹 Importar Toastr
-import * as bootstrap from 'bootstrap'; // ✅ Importar Bootstrap para manejar el modal
+import { AnimationOptions } from 'ngx-lottie';
+import { LottieComponent } from 'ngx-lottie'; // ✅ Importación correcta
+import animationData from '../../../assets/lottie/moonAnimation.json';
+import cloudsAnimation from '../../../assets/lottie/clouds.json';
 
 
 interface User {
@@ -22,7 +25,7 @@ interface User {
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule] 
+  imports: [CommonModule, FormsModule, LottieComponent] 
 })
 export class UsersComponent implements OnInit {
   users: User[] = [];
@@ -44,6 +47,18 @@ newUser = {
   ngOnInit(): void {
     this.loadUsers();
   }
+
+  lottieOptions: AnimationOptions = {
+    animationData, // 🔹 Carga el JSON directamente en Angular
+    loop: true,
+    autoplay: true
+  };
+
+  cloudsOptions: AnimationOptions = {
+    animationData: cloudsAnimation, // ✅ Usa animationData en vez de path
+    loop: true,
+    autoplay: true
+  };
 
  
   // ✅ Alternar estado activo/inactivo con Toastr
