@@ -78,4 +78,15 @@ ng serve
 ```
 Accede en: **http://localhost:4200**
 
+### 5️⃣ Autenticación
+
+Si bien el codigo esta pensado para que ene caso de que no 
+haya ningún usuario se cree uno por defecto; 
+us: admin@example.com 
+contra: admin123
+
+Ya hay un usuario admin creado el cual es:
+us: aaaaa@gmail.com
+contra: 123456
+
 
