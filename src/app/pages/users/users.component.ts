@@ -9,6 +9,7 @@ import animationData from '../../../assets/lottie/moonAnimation.json';
 import cloudsAnimation from '../../../assets/lottie/clouds.json';
 import { Router } from '@angular/router'; // ✅ Importar Router
 import { AuthService } from '../../services/auth.service'; // ✅ Importar AuthService
+import { io } from 'socket.io-client';
 
 
 
@@ -33,10 +34,13 @@ interface User {
 })
 export class UsersComponent implements OnInit {
   users: User[] = [];
+  logs: any[] = []; // ✅ Lista de logs
   selectedUser: User | null = null;
   editing: boolean = false; 
   loading: boolean = false; // 🔹 Estado de carga
   errorMessage: string = ''; // 🔹 Manejo de errores
+  private socket = io('http://localhost:5001'); // 🔹 Conectar al servidor de WebSockets
+
 
 newUser = {
   name: '',
@@ -51,6 +55,7 @@ newUser = {
 
   ngOnInit(): void {
     this.loadUsers();
+    this.loadLogs();
   }
 
   lottieOptions: AnimationOptions = {
@@ -87,6 +92,8 @@ newUser = {
       error: (err) => console.error('Error al obtener usuarios:', err)
     });
   }
+
+ 
 
   // 🔹 Generar un color aleatorio en formato hexadecimal
   getRandomColor(): string {
@@ -227,6 +234,34 @@ newUser = {
       error: () => {
         this.toastr.error('No se pudo eliminar el usuario.', 'Error');
       }
+    });
+  }
+
+   /** ✅ Obtener los logs al abrir el modal */
+   loadLogs() {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      this.toastr.error('No hay token de autenticación.', 'Error');
+      return;
+    }
+
+    this.http.get<any[]>('http://localhost:5001/api/logs', {
+      headers: { Authorization: `Bearer ${token}` }
+    }).subscribe({
+      next: (res) => {
+        this.logs = res;
+      },
+      error: () => {
+        this.toastr.error('No se pudieron obtener los logs.', 'Error');
+      }
+    });
+  }
+
+  listenForLogUpdates() {
+    this.socket.on('userLogged', (user) => {
+      this.toastr.info(`${user.name} ha iniciado sesión`, 'Nuevo Login');
+      this.loadLogs(); // 🔹 Recargar logs en tiempo real
     });
   }
 

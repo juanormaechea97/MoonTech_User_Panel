@@ -57,6 +57,8 @@
     </div>
   </div>
 
+  
+
   <!-- MODAL DE BOOTSTRAP -->
   <div
     class="modal fade"
@@ -150,6 +152,52 @@
       </div>
     </div>
   </div>
+
+  <!-- ✅ MODAL PARA VER LOS LOGS -->
+<div class="modal fade" id="logsModal" tabindex="-1" aria-labelledby="logsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      
+      <!-- Encabezado -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="logsModalLabel">Registro de Logs</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      
+      <!-- Cuerpo del modal con la lista de logs -->
+      <div class="modal-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Usuario</th>
+              <th>Acción</th>
+              <th>IP</th>
+              <th>Dispositivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let log of logs">
+              <td>{{ log.date | date:'short' }}</td>
+              <td>{{ log.user?.name }} {{ log.user?.lastname }}</td>
+              <td>{{ log.action }}</td>
+              <td>{{ log.ip }}</td>
+              <td>{{ log.userAgent }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pie del modal -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
   <!-- 🟦 PANEL DE DETALLES DEL USUARIO -->
   <div class="user-details" *ngIf="selectedUser">
     <h2>Detalles del usuario</h2>
@@ -196,6 +244,8 @@
     </div>
   </div>
 
+  
+
   <!-- Botón para abrir el modal -->
 
   <button
@@ -205,6 +255,11 @@
   >
     + Crear Usuario
   </button>
+
+    <!-- Botón para abrir el modal de Logs -->
+    <button class="log-container" data-bs-toggle="modal" data-bs-target="#logsModal">
+      <i class="bi bi-list"></i> Ver Logs
+    </button>
 
   <!-- 🔹 Botón de Cerrar Sesión -->
   <button class="logout-btn" (click)="logout()">
