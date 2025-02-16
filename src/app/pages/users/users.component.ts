@@ -127,17 +127,31 @@ newUser = {
     if (!this.selectedUser) return;
   
     this.loading = true;
-    const updatedUser = { ...this.selectedUser }; // Copiamos los datos del usuario
-   
+  
+    // Creamos una copia del usuario seleccionado para evitar modificarlo directamente
+    const updatedUser = { 
+      name: this.selectedUser.name,
+      lastname: this.selectedUser.lastname,
+      email: this.selectedUser.email,
+      active: this.selectedUser.active,
+      rol: this.selectedUser.rol
+    };
   
     console.log('🟡 Enviando actualización:', updatedUser); // 🔹 Verifica qué datos se envían
   
-    this.http.put<User>(`https://moontech-back.onrender.com/api/users/${updatedUser._id}`, updatedUser, {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.toastr.error('No hay token de autenticación.', 'Error');
+      this.loading = false;
+      return;
+    }
   
+    this.http.put<User>(`https://moontech-back.onrender.com/api/users/${this.selectedUser._id}`, updatedUser, {
+      headers: { Authorization: `Bearer ${token}` } // ✅ Incluimos el token en la cabecera
     }).subscribe({
       next: (res) => {
         console.log('✅ Usuario actualizado:', res); // 🔹 Verifica la respuesta de la API
-        this.selectedUser = res; // ✅ Actualiza la info del usuario en el panel
+        this.selectedUser = { ...res }; // ✅ Aseguramos que la UI refleje los cambios
         this.loading = false;
         this.toastr.success('Usuario actualizado correctamente.', 'Éxito');
       },
@@ -148,6 +162,7 @@ newUser = {
       }
     });
   }
+  
   
   showAdminToast() {
     this.toastr.warning('Este usuario no puede ser desactivado.', 'Acción no permitida');
