@@ -68,9 +68,11 @@ body, html {
 }
 
 .logo {
-  width: 120px;
+  max-width: 300px;
+  width: 100%;
   height: auto;
 }
+
 
 /* 🔹 Tarjeta de inicio de sesión */
 .card {
