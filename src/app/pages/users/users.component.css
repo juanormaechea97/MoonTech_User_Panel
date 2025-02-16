@@ -6,6 +6,26 @@ body, html {
     overflow: hidden; /* 🔹 Evita scroll innecesario */
 }
 
+/* Contenedor del botón */
+.create-user-container {
+  position: fixed;
+  bottom: 20px;
+  right: 190px;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #5d7b29; /* Rojo Bootstrap */
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease;
+  z-index: 5; /* 🔹 Asegura que está sobre el fondo */
+}
+
 /* 🔹 Botón de cerrar sesión en la esquina inferior derecha */
 .logout-btn {
   position: fixed;
@@ -15,6 +35,7 @@ body, html {
   color: white;
   padding: 10px 15px;
   border: none;
+    z-index: 5; /* 🔹 Asegura que está sobre el fondo */
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
@@ -139,6 +160,7 @@ body, html {
   flex-direction: column;
   z-index: 5; /* 🔹 Detrás de la luna */
   padding-right: 20px;
+  padding-top: 50px;
 }
 
 /* 🌟 Habilitar el scroll dentro del listado de usuarios */
@@ -260,12 +282,7 @@ body, html {
   align-items: center; /* 🔹 Alinea verticalmente */
 }
 
-/* Contenedor del botón */
-.create-user-container {
-    display: flex;
-    justify-content: flex-start; /* 🔹 Alinea el botón a la izquierda */
-    margin-bottom: 10px; /* 🔹 Espacio entre el botón y el primer usuario */
-  }
+
   
   /* Estilos del botón */
   .create-user-btn {
