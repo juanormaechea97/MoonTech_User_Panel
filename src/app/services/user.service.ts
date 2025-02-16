@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:5001/api/users'; // URL del backend
+  private apiUrl = 'https://moontech-back.onrender.com/api/users'; // URL del backend
+//private apiUrl = 'https://moontech-back.onrender.com/api/users'; // URL del backend
 
   constructor(private http: HttpClient) {}
 

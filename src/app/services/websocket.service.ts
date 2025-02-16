@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Socket, SocketIoConfig } from 'ngx-socket-io';
 
-const config: SocketIoConfig = { url: 'http://localhost:5001', options: {} };
+const config: SocketIoConfig = { url: 'https://moontech-back.onrender.com', options: {} };
+//const config: SocketIoConfig = { url: 'https://moontech-back.onrender.com', options: {} };
 
 @Injectable({
   providedIn: 'root'

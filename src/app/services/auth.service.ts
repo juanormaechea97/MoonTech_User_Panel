@@ -7,7 +7,8 @@ import { Router } from '@angular/router'; // ✅ Importa Router
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5001/api/auth'; // URL del backend
+  private apiUrl = 'https://moontech-back.onrender.com/api/auth'; // URL del backend
+  //private apiUrl = 'https://moontech-back.onrender.com/api/auth'; // URL del backend
 
   constructor(private http: HttpClient, private router: Router) {} // ✅ Inyecta Router
 

@@ -39,7 +39,8 @@ export class UsersComponent implements OnInit {
   editing: boolean = false; 
   loading: boolean = false; // 🔹 Estado de carga
   errorMessage: string = ''; // 🔹 Manejo de errores
-  private socket = io('http://localhost:5001'); // 🔹 Conectar al servidor de WebSockets
+  private socket = io('https://moontech-back.onrender.com'); // 🔹 Conectar al servidor de WebSockets
+  //  private socket = io('https://moontech-back.onrender.com'); // 🔹 Conectar al servidor de WebSockets
 
 
 newUser = {
@@ -73,7 +74,7 @@ newUser = {
  
   // ✅ Alternar estado activo/inactivo con Toastr
   loadUsers() {
-    this.http.get<User[]>('http://localhost:5001/api/users').subscribe({
+    this.http.get<User[]>('https://moontech-back.onrender.com/api/users').subscribe({
       next: (res) => {
         // 🔹 Asignar un color aleatorio a cada usuario
         this.users = res.map(user => ({
@@ -102,7 +103,7 @@ newUser = {
   
     console.log('🟡 Enviando actualización:', updatedUser); // 🔹 Verifica qué datos se envían
   
-    this.http.put<User>(`http://localhost:5001/api/users/${user._id}`, updatedUser, {
+    this.http.put<User>(`https://moontech-back.onrender.com/api/users/${user._id}`, updatedUser, {
   
     }).subscribe({
       next: (res) => {
@@ -131,7 +132,7 @@ newUser = {
   
     console.log('🟡 Enviando actualización:', updatedUser); // 🔹 Verifica qué datos se envían
   
-    this.http.put<User>(`http://localhost:5001/api/users/${updatedUser._id}`, updatedUser, {
+    this.http.put<User>(`https://moontech-back.onrender.com/api/users/${updatedUser._id}`, updatedUser, {
   
     }).subscribe({
       next: (res) => {
@@ -174,7 +175,7 @@ newUser = {
     if (!this.selectedUser) return;
 
   
-    this.http.put(`http://localhost:5001/api/users/${this.selectedUser._id}`, this.selectedUser, {
+    this.http.put(`https://moontech-back.onrender.com/api/users/${this.selectedUser._id}`, this.selectedUser, {
  
     }).subscribe({
       next: () => {
@@ -193,7 +194,7 @@ newUser = {
 
   
 
-    this.http.delete(`http://localhost:5001/api/users/${userId}`, {
+    this.http.delete(`https://moontech-back.onrender.com/api/users/${userId}`, {
    
     }).subscribe({
       next: () => {
@@ -213,7 +214,7 @@ newUser = {
    loadLogs() {
 
 
-    this.http.get<any[]>('http://localhost:5001/api/logs', {
+    this.http.get<any[]>('https://moontech-back.onrender.com/api/logs', {
     
     }).subscribe({
       next: (res) => {
@@ -260,7 +261,7 @@ newUser = {
     this.loading = true;
    
     // ✅ Enviar solicitud al backend
-    this.http.post<User>('http://localhost:5001/api/users', this.newUser, {
+    this.http.post<User>('https://moontech-back.onrender.com/api/users', this.newUser, {
 
     }).subscribe({
       next: (res) => {
