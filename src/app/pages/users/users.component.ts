@@ -39,7 +39,8 @@ newUser = {
   email: '',
   password: '', 
   lastname: '',
-  active: true
+  active: true, 
+  rol: 'user'
 };
 
   constructor(private http: HttpClient, private toastr: ToastrService, ) {}
@@ -122,6 +123,39 @@ newUser = {
       }
     });
   }
+
+  updateUser() {
+    if (!this.selectedUser) return;
+  
+    this.loading = true;
+    const updatedUser = { ...this.selectedUser }; // Copiamos los datos del usuario
+    const token = localStorage.getItem('token');
+  
+    if (!token) {
+      this.toastr.error('No hay token de autenticación.', 'Error');
+      this.loading = false;
+      return;
+    }
+  
+    console.log('🟡 Enviando actualización:', updatedUser); // 🔹 Verifica qué datos se envían
+  
+    this.http.put<User>(`http://localhost:5001/api/users/${updatedUser._id}`, updatedUser, {
+      headers: { Authorization: `Bearer ${token}` }
+    }).subscribe({
+      next: (res) => {
+        console.log('✅ Usuario actualizado:', res); // 🔹 Verifica la respuesta de la API
+        this.selectedUser = res; // ✅ Actualiza la info del usuario en el panel
+        this.loading = false;
+        this.toastr.success('Usuario actualizado correctamente.', 'Éxito');
+      },
+      error: (err) => {
+        console.error('❌ Error al actualizar usuario:', err);
+        this.loading = false;
+        this.toastr.error('No se pudo actualizar el usuario.', 'Error');
+      }
+    });
+  }
+  
   
 
   selectUser(user: User) {
@@ -227,7 +261,7 @@ newUser = {
         this.loadUsers();
   
         // ✅ Limpiar formulario solo si el usuario se creó con éxito
-        this.newUser = { name: '', email: '', password: '',lastname: '',  active: true };
+        this.newUser = { name: '', email: '', password: '',lastname: '',  active: true, rol: 'user'};
       },
       error: (err) => {
         console.error('Error al crear usuario:', err);

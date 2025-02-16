@@ -48,9 +48,10 @@
         <div class="avatar" [ngStyle]="{'background': user.avatarColor}">
           {{ getInitials(user.name) }}
         </div>
-        
-        <p class="user-name">{{ user.name }}</p>
-        <p class="user-lastname">{{ user.lastname }}</p>
+   
+          <p class="user-name">{{ user.name }} {{ user.lastname }}</p>
+         
+       
         <p class="user-status"
           [ngClass]="user.active ? 'active' : 'inactive'"
           (click)="toggleUserStatus(user)">
@@ -109,6 +110,35 @@
       </div>
     </div>
   </div>
-  
+ <!-- 🟦 PANEL DE DETALLES DEL USUARIO -->
+<div class="user-details" *ngIf="selectedUser">
+
+  <h2>Detalles del usuario</h2>
+  <div class="divider"></div> <!-- Línea divisoria -->
+
+  <!-- ✅ Formulario con datos del usuario -->
+  <div class="mb-3">
+    <label for="name" class="form-label">Nombre</label>
+    <input type="text" class="form-control" id="name" [(ngModel)]="selectedUser.name">
+  </div>
+
+  <div class="mb-3">
+    <label for="lastname" class="form-label">Apellido</label>
+    <input type="text" class="form-control" id="lastname" [(ngModel)]="selectedUser.lastname">
+  </div>
+
+  <div class="mb-3">
+    <label for="email" class="form-label">Correo electrónico</label>
+    <input type="email" class="form-control" id="email" [(ngModel)]="selectedUser.email">
+  </div>
+
+  <!-- 🔹 Botones -->
+  <div class="button-group">
+    <button class="btn btn-warning" (click)="updateUser()">Actualizar</button>
+    <button class="btn btn-danger" (click)="deleteUser(selectedUser._id)">Eliminar</button>
+  </div>
+
+</div>
+
 
 </div>
