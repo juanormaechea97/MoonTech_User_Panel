@@ -6,6 +6,31 @@ body, html {
     overflow: hidden; /* 🔹 Evita scroll innecesario */
 }
 
+/* 🔹 Botón de cerrar sesión en la esquina inferior derecha */
+.logout-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #dc3545; /* Rojo Bootstrap */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease;
+}
+
+/* 🔹 Cambio de color al pasar el mouse */
+.logout-btn:hover {
+  background-color: #b02a37;
+}
+
+
 /* 🔹 PANEL DE DETALLES CON EFECTO GLASS */
 .user-details {
   width: 40%;
@@ -105,14 +130,35 @@ body, html {
     position: relative;
 }
 
-/* Lista de usuarios */
-.users-list {
-    width: 30%;
-    padding: 10px;
-    overflow-y: auto; /* 🔹 Permite scroll si es necesario */
-    overflow-x: visible; /* 🔹 Asegura que los bordes no se corten */
-    z-index: 5; /* 🔹 Detrás de la luna */
+/* 🌟 Contenedor con altura fija y scroll interno */
+.users-list-container {
+  width: 450px; /* 🔹 Ajusta según el diseño */
+  height: 70vh; /* 🔹 Tamaño fijo para evitar que crezca indefinidamente */
+  overflow: hidden; /* 🔹 Evita que se desborde el contenido */
+  display: flex;
+  flex-direction: column;
+  z-index: 5; /* 🔹 Detrás de la luna */
+  padding-right: 20px;
 }
+
+/* 🌟 Habilitar el scroll dentro del listado de usuarios */
+.users-list {
+  flex-grow: 1; /* 🔹 Permite que crezca dentro del contenedor */
+  overflow-y: auto; /* 🔹 Scroll vertical cuando hay demasiados usuarios */
+  max-height: calc(100% - 50px); /* 🔹 Ajuste dinámico considerando el botón */
+  padding-right: 5px; /* 🔹 Espacio para la barra de scroll */
+}
+
+/* 🌟 Mejoras visuales */
+.users-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.users-list::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3); /* 🔹 Color del scroll */
+  border-radius: 5px;
+}
+
 
 
 /* Tarjeta de usuario */
@@ -162,6 +208,38 @@ body, html {
     justify-content: center;
     align-items: center;
 }
+
+/* 🔹 Estiliza la etiqueta de Admin */
+.admin-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px; /* Espacio entre el icono y el texto */
+  background: rgba(0, 0, 0, 0.1); /* Fondo semi-transparente */
+  color: #222; /* Color de texto */
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 20px;
+  padding: 5px 10px;
+}
+
+/* 🔹 Estiliza el icono */
+.admin-status i {
+  font-size: 16px;
+  color: #222;
+}
+
+/* 🔹 Ajuste responsivo */
+@media (max-width: 768px) {
+  .admin-status {
+    font-size: 12px;
+    padding: 3px 8px;
+  }
+  .admin-status i {
+    font-size: 14px;
+  }
+}
+
 
 /* Nombre del usuario */
 .user-name {

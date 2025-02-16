@@ -27,16 +27,18 @@
     </ng-lottie>
   </div>
 
-  <!-- Lista de usuarios -->
+ <!-- Contenedor principal con scroll -->
+<div class="users-list-container">
+  
+  <!-- Botón para abrir el modal -->
+  <div class="create-user-container">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModal">
+      + Crear Usuario
+    </button>
+  </div>
+
+  <!-- Lista de usuarios con scroll interno -->
   <div class="users-list">
-
-    <!-- Botón para abrir el modal -->
-    <div class="create-user-container">
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUserModal">
-        + Crear Usuario
-      </button>
-    </div>
-
     <div 
       *ngFor="let user of users" 
       class="user-card" 
@@ -48,18 +50,25 @@
         <div class="avatar" [ngStyle]="{'background': user.avatarColor}">
           {{ getInitials(user.name) }}
         </div>
-   
-          <p class="user-name">{{ user.name }} {{ user.lastname }}</p>
-         
-       
+
+        <p class="user-name">{{ user.name }} {{ user.lastname }}</p>
+
         <p class="user-status"
+          *ngIf="user.rol !== 'admin'"
           [ngClass]="user.active ? 'active' : 'inactive'"
           (click)="toggleUserStatus(user)">
           {{ user.active ? 'Activo' : 'Inactivo' }}
         </p>
+
+        <!-- ✅ Si el usuario es Admin, mostrar candado -->
+        <p class="admin-status" *ngIf="user.rol != 'user'" (click)="showAdminToast()">
+          <i class="bi bi-lock-fill"></i> 
+        </p>
       </div>
     </div>
   </div>
+</div>
+
 
   <!-- MODAL DE BOOTSTRAP -->
   <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
@@ -133,12 +142,17 @@
   </div>
 
   <!-- 🔹 Botones -->
-  <div class="button-group">
+  <div class="button-group" *ngIf="selectedUser?.rol !== 'admin'">
     <button class="btn btn-warning" (click)="updateUser()">Actualizar</button>
     <button class="btn btn-danger" (click)="deleteUser(selectedUser._id)">Eliminar</button>
   </div>
+  
 
 </div>
+<!-- 🔹 Botón de Cerrar Sesión -->
+<button class="logout-btn" (click)="logout()">
+  <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+</button>
 
 
 </div>

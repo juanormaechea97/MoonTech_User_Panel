@@ -7,6 +7,9 @@ import { AnimationOptions } from 'ngx-lottie';
 import { LottieComponent } from 'ngx-lottie'; // ✅ Importación correcta
 import animationData from '../../../assets/lottie/moonAnimation.json';
 import cloudsAnimation from '../../../assets/lottie/clouds.json';
+import { Router } from '@angular/router'; // ✅ Importar Router
+import { AuthService } from '../../services/auth.service'; // ✅ Importar AuthService
+
 
 
 interface User {
@@ -16,6 +19,7 @@ interface User {
   active: boolean;
   lastname?: string;
   lastLogin?: string;
+  rol: string;
   avatarColor?: string; // 🔹 Nuevo campo para el color del avatar
 }
 
@@ -43,7 +47,7 @@ newUser = {
   rol: 'user'
 };
 
-  constructor(private http: HttpClient, private toastr: ToastrService, ) {}
+  constructor(private http: HttpClient, private toastr: ToastrService,private authService: AuthService, private router: Router ) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -156,6 +160,9 @@ newUser = {
     });
   }
   
+  showAdminToast() {
+    this.toastr.warning('Este usuario no puede ser desactivado.', 'Acción no permitida');
+  }
   
 
   selectUser(user: User) {
@@ -163,6 +170,12 @@ newUser = {
     this.editing = false;
   }
 
+  logout() {
+    this.authService.logout(); // ✅ Llamar a logout del servicio
+    this.router.navigate(['/login']); // ✅ Redirigir al login
+  }
+
+  
   editUser(user: User) {
     this.selectedUser = user;
     this.editing = true;
@@ -224,7 +237,7 @@ newUser = {
 
   createUser() {
     // ✅ Verificar que los campos no estén vacíos
-    if (!this.newUser.name || !this.newUser.email || !this.newUser.password) {
+    if (!this.newUser.name || !this.newUser.email || !this.newUser.lastname|| !this.newUser.password) {
       this.toastr.warning('Todos los campos son obligatorios.', 'Atención');
       return;
     }
