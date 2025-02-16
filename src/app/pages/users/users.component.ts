@@ -73,15 +73,7 @@ newUser = {
  
   // ✅ Alternar estado activo/inactivo con Toastr
   loadUsers() {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error('No hay token de autenticación');
-      return;
-    }
-
-    this.http.get<User[]>('http://localhost:5001/api/users', {
-      headers: { Authorization: `Bearer ${token}` }
-    }).subscribe({
+    this.http.get<User[]>('http://localhost:5001/api/users').subscribe({
       next: (res) => {
         // 🔹 Asignar un color aleatorio a cada usuario
         this.users = res.map(user => ({
@@ -92,6 +84,7 @@ newUser = {
       error: (err) => console.error('Error al obtener usuarios:', err)
     });
   }
+  
 
  
 
@@ -105,18 +98,12 @@ newUser = {
   toggleUserStatus(user: User) {
     this.loading = true;
     const updatedUser = { ...user, active: !user.active };
-    const token = localStorage.getItem('token');
-  
-    if (!token) {
-      this.toastr.error('No hay token de autenticación.', 'Error');
-      this.loading = false;
-      return;
-    }
+   
   
     console.log('🟡 Enviando actualización:', updatedUser); // 🔹 Verifica qué datos se envían
   
     this.http.put<User>(`http://localhost:5001/api/users/${user._id}`, updatedUser, {
-      headers: { Authorization: `Bearer ${token}` }
+  
     }).subscribe({
       next: (res) => {
         console.log('✅ Usuario actualizado:', res); // 🔹 Verifica la respuesta de la API
@@ -140,18 +127,12 @@ newUser = {
   
     this.loading = true;
     const updatedUser = { ...this.selectedUser }; // Copiamos los datos del usuario
-    const token = localStorage.getItem('token');
-  
-    if (!token) {
-      this.toastr.error('No hay token de autenticación.', 'Error');
-      this.loading = false;
-      return;
-    }
+   
   
     console.log('🟡 Enviando actualización:', updatedUser); // 🔹 Verifica qué datos se envían
   
     this.http.put<User>(`http://localhost:5001/api/users/${updatedUser._id}`, updatedUser, {
-      headers: { Authorization: `Bearer ${token}` }
+  
     }).subscribe({
       next: (res) => {
         console.log('✅ Usuario actualizado:', res); // 🔹 Verifica la respuesta de la API
@@ -192,14 +173,9 @@ newUser = {
   saveUser() {
     if (!this.selectedUser) return;
 
-    const token = localStorage.getItem('token');
-    if (!token) {
-      this.toastr.error('No hay token de autenticación.', 'Error');
-      return;
-    }
-
+  
     this.http.put(`http://localhost:5001/api/users/${this.selectedUser._id}`, this.selectedUser, {
-      headers: { Authorization: `Bearer ${token}` }
+ 
     }).subscribe({
       next: () => {
         this.toastr.success('Usuario actualizado correctamente.', 'Éxito');
@@ -215,14 +191,10 @@ newUser = {
   deleteUser(userId: string) {
     if (!confirm('¿Estás seguro de que deseas eliminar este usuario?')) return;
 
-    const token = localStorage.getItem('token');
-    if (!token) {
-      this.toastr.error('No hay token de autenticación.', 'Error');
-      return;
-    }
+  
 
     this.http.delete(`http://localhost:5001/api/users/${userId}`, {
-      headers: { Authorization: `Bearer ${token}` }
+   
     }).subscribe({
       next: () => {
         this.toastr.success('Usuario eliminado correctamente.', 'Éxito');
@@ -239,15 +211,10 @@ newUser = {
 
    /** ✅ Obtener los logs al abrir el modal */
    loadLogs() {
-    const token = localStorage.getItem('token');
 
-    if (!token) {
-      this.toastr.error('No hay token de autenticación.', 'Error');
-      return;
-    }
 
     this.http.get<any[]>('http://localhost:5001/api/logs', {
-      headers: { Authorization: `Bearer ${token}` }
+    
     }).subscribe({
       next: (res) => {
         this.logs = res;
@@ -291,18 +258,10 @@ newUser = {
     }
   
     this.loading = true;
-    const token = localStorage.getItem('token');
-  
-    // ✅ Verificar si hay un token de autenticación
-    if (!token) {
-      this.toastr.error('No hay token de autenticación.', 'Error');
-      this.loading = false;
-      return;
-    }
-  
+   
     // ✅ Enviar solicitud al backend
     this.http.post<User>('http://localhost:5001/api/users', this.newUser, {
-      headers: { Authorization: `Bearer ${token}` }
+
     }).subscribe({
       next: (res) => {
         this.toastr.success('Usuario creado correctamente.', 'Éxito');
